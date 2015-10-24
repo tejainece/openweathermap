@@ -1,47 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Openweathermap by briandowns</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
     <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
+    <title>Openweathermap by tejainece</title>
   </head>
+
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/briandowns/openweathermap">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/briandowns/openweathermap/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/briandowns/openweathermap/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
+    <header>
+      <div class="inner">
+        <h1>Openweathermap</h1>
+        <h2>Go (golang) library for use with openweathermap.org&#39;s API.</h2>
+        <a href="https://github.com/tejainece/openweathermap" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
 
-    <div class="wrapper">
-
-      <section>
-        <div id="title">
-          <h1>Openweathermap</h1>
-          <p>Go (golang) library for use with openweathermap.org&#39;s API.</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/briandowns">briandowns</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
-
-        <h1>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
 <a id="openweathermap-go-api" class="anchor" href="#openweathermap-go-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>OpenWeatherMap Go API</h1>
 
-<p><a href="https://godoc.org/github.com/briandowns/openweathermap"><img src="https://godoc.org/github.com/briandowns/openweathermap?status.svg" alt="GoDoc"></a> <a href="https://travis-ci.org/briandowns/openweathermap"><img src="https://travis-ci.org/briandowns/openweathermap.svg?branch=master" alt="Build Status"></a></p>
+<p><a href="https://godoc.org/github.com/tejainece/openweathermap"><img src="https://godoc.org/github.com/tejainece/openweathermap?status.svg" alt="GoDoc"></a>
+<a href="https://travis-ci.org/tejainece/openweathermap"><img src="https://travis-ci.org/tejainece/openweathermap.svg?branch=master" alt="Build Status"></a></p>
 
 <p>Go (golang) package for use with openweathermap.org's API.</p>
 
@@ -119,14 +110,79 @@
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<div class="highlight highlight-bash"><pre>go get github.com/briandowns/openweathermap</pre></div>
+<div class="highlight highlight-source-shell"><pre>go get github.com/briandowns/openweathermap</pre></div>
+
+<h1>
+<a id="initializing-the-configuration" class="anchor" href="#initializing-the-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Initializing the configuration</h1>
+
+<p>OWM requires mandatory API key sent with every request. openweathermap provides
+public variable called Config, that allows setting configuration values.</p>
+
+<h2>
+<a id="manually-set-api-key" class="anchor" href="#manually-set-api-key" aria-hidden="true"><span class="octicon octicon-link"></span></a>Manually set API key</h2>
+
+<div class="highlight highlight-source-go"><pre><span class="pl-k">package</span> main
+
+<span class="pl-k">import</span> (
+    <span class="pl-c">// Shortening the import reference name seems to make it a bit easier</span>
+    owm <span class="pl-s"><span class="pl-pds">"</span>github.com/briandowns/openweathermap<span class="pl-pds">"</span></span>
+)
+
+<span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    owm.<span class="pl-smi">Config</span>.<span class="pl-c1">SetApiKey</span>(<span class="pl-s"><span class="pl-pds">"</span>12345678901234567890123456789012<span class="pl-pds">"</span></span>)
+}</pre></div>
+
+<h2>
+<a id="use-openweathermaps-init-function" class="anchor" href="#use-openweathermaps-init-function" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use openweathermap's Init function</h2>
+
+<p>openweathermap provides a standard way to initialize the package and configuration
+variables. It is safer not to store API keys in source code. openweathermap encourages
+users to pass API key through environment variables. openweathermap's <code>Init</code>
+method automatically intializes the configuration values from predefined environment
+variable.</p>
+
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Environment variable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API key</td>
+<td>OWM_API_KEY</td>
+</tr>
+<tr>
+<td>Username</td>
+<td>OWM_USERNAME</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>OWM_PASSWORD</td>
+</tr>
+</tbody>
+</table>
+
+<div class="highlight highlight-source-go"><pre><span class="pl-k">package</span> main
+
+<span class="pl-k">import</span> (
+    <span class="pl-c">// Shortening the import reference name seems to make it a bit easier</span>
+    owm <span class="pl-s"><span class="pl-pds">"</span>github.com/briandowns/openweathermap<span class="pl-pds">"</span></span>
+)
+
+<span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    <span class="pl-k">if</span> <span class="pl-smi">lInitErr</span> <span class="pl-k">:=</span> owm.<span class="pl-c1">Init</span>(); lInitErr != <span class="pl-c1">nil</span> {
+        <span class="pl-c1">panic</span>(lInitErr)
+    }
+}</pre></div>
 
 <h2>
 <a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h2>
 
 <p>There are a few full examples in the examples directory that can be referenced.  1 is a command line application and 1 is a simple web application.</p>
 
-<div class="highlight highlight-Go"><pre><span class="pl-k">package</span> main
+<div class="highlight highlight-source-go"><pre><span class="pl-k">package</span> main
 
 <span class="pl-k">import</span> (
     <span class="pl-s"><span class="pl-pds">"</span>log<span class="pl-pds">"</span></span>
@@ -137,6 +193,10 @@
 )
 
 <span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    <span class="pl-k">if</span> <span class="pl-smi">lInitErr</span> <span class="pl-k">:=</span> owm.<span class="pl-c1">Init</span>(); lInitErr != <span class="pl-c1">nil</span> {
+        log.<span class="pl-c1">Fatalln</span>(err)
+    }
+
     <span class="pl-smi">w</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> owm.<span class="pl-c1">NewCurrent</span>(<span class="pl-s"><span class="pl-pds">"</span>F<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ru<span class="pl-pds">"</span></span>) <span class="pl-c">// fahrenheit (imperial) with Russian output</span>
     <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
         log.<span class="pl-c1">Fatalln</span>(err)
@@ -149,7 +209,11 @@
 <h3>
 <a id="current-conditions-by-location-name" class="anchor" href="#current-conditions-by-location-name" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current Conditions by location name</h3>
 
-<div class="highlight highlight-Go"><pre><span class="pl-k">func</span> <span class="pl-en">main</span>() {
+<div class="highlight highlight-source-go"><pre><span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    <span class="pl-k">if</span> <span class="pl-smi">lInitErr</span> <span class="pl-k">:=</span> owm.<span class="pl-c1">Init</span>(); lInitErr != <span class="pl-c1">nil</span> {
+        log.<span class="pl-c1">Fatalln</span>(err)
+    }
+
     <span class="pl-smi">w</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> owm.<span class="pl-c1">NewCurrent</span>(<span class="pl-s"><span class="pl-pds">"</span>K<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>EN<span class="pl-pds">"</span></span>) <span class="pl-c">// (internal - OpenWeatherMap reference for kelvin) with English output</span>
     <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
         log.<span class="pl-c1">Fatalln</span>(err)
@@ -162,7 +226,11 @@
 <h3>
 <a id="forecast-conditions-in-imperial-fahrenheit-by-coordinates" class="anchor" href="#forecast-conditions-in-imperial-fahrenheit-by-coordinates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Forecast Conditions in imperial (fahrenheit) by coordinates</h3>
 
-<div class="highlight highlight-Go"><pre><span class="pl-k">func</span> <span class="pl-en">main</span>() {
+<div class="highlight highlight-source-go"><pre><span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    <span class="pl-k">if</span> <span class="pl-smi">lInitErr</span> <span class="pl-k">:=</span> owm.<span class="pl-c1">Init</span>(); lInitErr != <span class="pl-c1">nil</span> {
+        log.<span class="pl-c1">Fatalln</span>(err)
+    }
+
     <span class="pl-smi">w</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> owm.<span class="pl-c1">NewForecast</span>(<span class="pl-s"><span class="pl-pds">"</span>F<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>FI<span class="pl-pds">"</span></span>)
     <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
         log.<span class="pl-c1">Fatalln</span>(err)
@@ -180,7 +248,11 @@
 <h3>
 <a id="current-conditions-in-metric-celsius-by-location-id" class="anchor" href="#current-conditions-in-metric-celsius-by-location-id" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current conditions in metric (celsius) by location ID</h3>
 
-<div class="highlight highlight-Go"><pre><span class="pl-k">func</span> <span class="pl-en">main</span>() {
+<div class="highlight highlight-source-go"><pre><span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    <span class="pl-k">if</span> <span class="pl-smi">lInitErr</span> <span class="pl-k">:=</span> owm.<span class="pl-c1">Init</span>(); lInitErr != <span class="pl-c1">nil</span> {
+        log.<span class="pl-c1">Fatalln</span>(err)
+    }
+
     <span class="pl-smi">w</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> owm.<span class="pl-c1">NewCurrent</span>(<span class="pl-s"><span class="pl-pds">"</span>C<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>PL<span class="pl-pds">"</span></span>)
     <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
         log.<span class="pl-c1">Fatalln</span>(err)
@@ -193,7 +265,11 @@
 <h3>
 <a id="current-conditions-by-zip-code-2-character-country-code-required" class="anchor" href="#current-conditions-by-zip-code-2-character-country-code-required" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current conditions by zip code. 2 character country code required</h3>
 
-<div class="highlight highlight-Go"><pre><span class="pl-k">func</span> <span class="pl-en">main</span>() {
+<div class="highlight highlight-source-go"><pre><span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    <span class="pl-k">if</span> <span class="pl-smi">lInitErr</span> <span class="pl-k">:=</span> owm.<span class="pl-c1">Init</span>(); lInitErr != <span class="pl-c1">nil</span> {
+        log.<span class="pl-c1">Fatalln</span>(err)
+    }
+
     <span class="pl-smi">w</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> owm.<span class="pl-c1">NewCurrent</span>(<span class="pl-s"><span class="pl-pds">"</span>F<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>US<span class="pl-pds">"</span></span>)
     <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
         log.<span class="pl-c1">Fatalln</span>(err)
@@ -202,10 +278,25 @@
     w.<span class="pl-c1">CurrentByZip</span>(<span class="pl-c1">19125</span>, <span class="pl-s"><span class="pl-pds">"</span>US<span class="pl-pds">"</span></span>)
     fmt.<span class="pl-c1">Println</span>(w)
 }</pre></div>
-      </section>
+        </section>
 
+        <aside id="sidebar">
+          <a href="https://github.com/tejainece/openweathermap/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/tejainece/openweathermap/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/tejainece/openweathermap"></a> is maintained by <a href="https://github.com/tejainece">tejainece</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
+
+  
   </body>
 </html>
